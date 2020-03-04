@@ -1,8 +1,5 @@
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Random;
 
 public class Hello {
@@ -66,14 +63,30 @@ public class Hello {
         return -1;
     }
 
+    enum Season {
+        SPRING, SUMMER, AUTUMN, WINTER
+    }
+
+    public static void catFile(File file, int deep) {
+        for (int i = 0; i < deep; i++) {
+            System.out.print("-");
+        }
+        System.out.println(file.getName());
+        if (file.isDirectory()) {
+            deep++;
+            for (File dFile : file.listFiles()
+            ) {
+                catFile(dFile, deep);
+            }
+
+        }
+
+    }
 
     public static void main(String[] args) {
-        File file = new File("./abc.txt");
-        long ok = file.lastModified();
-        long size = file.length();
-        SimpleDateFormat calendar = new SimpleDateFormat();
+        File files = new File("E:\\尚学堂2018人工智能视频教程\\01_人工智能开发及远景介绍（预科）【尚学堂·百战程序员】");
+        catFile(files, 0);
+//        System.out.println(Arrays.toString(file.listFiles()));
 
-        System.out.println(calendar.format(ok));
-        System.out.println(size);
     }
 }
